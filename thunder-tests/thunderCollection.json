@@ -12,5 +12,33 @@
     "created": "2023-01-31T16:17:34.701Z",
     "sortNum": 30000,
     "folders": []
+  },
+  {
+    "_id": "7b217082-44ca-4d65-8482-f72368994688",
+    "colName": "Category",
+    "created": "2023-02-01T09:41:24.804Z",
+    "sortNum": 40000,
+    "folders": []
+  },
+  {
+    "_id": "4f9dffb9-8a0e-4cdd-8b82-cbc0db928710",
+    "colName": "Brand",
+    "created": "2023-02-01T10:46:23.101Z",
+    "sortNum": 50000,
+    "folders": []
+  },
+  {
+    "_id": "7fb3f8e4-02a6-4602-a00b-dc6de661d400",
+    "colName": "Blog category",
+    "created": "2023-02-01T11:01:18.014Z",
+    "sortNum": 60000,
+    "folders": []
+  },
+  {
+    "_id": "783c8e22-d08a-4364-ab19-27f1321f0c88",
+    "colName": "Coupon",
+    "created": "2023-02-01T17:46:11.645Z",
+    "sortNum": 50000,
+    "folders": []
   }
 ]

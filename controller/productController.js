@@ -1,4 +1,5 @@
 const Product = require("../models/productModel")
+const User = require("../models/userModel")
 const asyncHandler = require('express-async-handler');
 const validateMongodbId = require('../utils/validateMongodbId.js');
 const slugify = require('slugify');
@@ -127,4 +128,125 @@ const getAllProducts = asyncHandler(async(req, res)=>{
     }
 })
 
-module.exports = {createProduct,getProduct,getAllProducts,updateProduct,deleteProduct}
+const addToWishlist = asyncHandler(async(req, res)=>{
+    const {id} = req.user;
+    const {proId} = req.body; 
+    try {
+        const user1 =await User.findById(id);
+        console.log(user1)
+        const alreadyAddList = user1.wishlist.find(id=>id.toString() === proId);
+        if(alreadyAddList){
+            let user = await User.findByIdAndUpdate(
+                id,
+                {
+                    $pull:{wishlist:proId},
+                },
+                {
+                    new:true,
+                }
+            )
+            res.json({
+                status:"success",
+                code:1,
+                data:user,
+            })
+        }else{
+            let user = await User.findByIdAndUpdate(
+                id,
+                {
+                    $push:{wishlist:proId},
+                },
+                {
+                    new:true,
+                }
+            )
+            res.json({
+                status:"success",
+                code:1,
+                data:user,
+            })
+        }
+    } catch (error) {
+        throw new Error(error)
+    }
+})
+
+const rating = asyncHandler(async(req, res)=>{
+    const {id} = req.user;
+    const {star, proId,comment} = req.body; 
+    const setRating = async () => {
+        const getProduct = await Product.findById(proId);
+        let totalRating = getProduct.ratings.length;
+        let ratingsum = getProduct.ratings
+            .map(item=>item.star)
+            .reduce((prev, curr)=>prev + curr, 0);
+        let actualRating = Math.round(ratingsum / totalRating);
+        let finalProduct = await Product.findByIdAndUpdate(
+            proId,
+            {
+                totalRating:actualRating,
+            },
+            {
+                new:true,
+            }
+        )
+        return finalProduct;
+    };
+
+    try {
+        const product = await Product.findById(proId);
+        let alreadyRated = product.ratings.find(
+            userId => userId.postedby.toString() === id.toString()
+        );
+        if(alreadyRated){
+            const updateProduct = await Product.updateOne(
+                {
+                    ratings:{$elemMatch:alreadyRated},
+                },
+                {
+                    $set:{"ratings.$.star":star,"ratings.$.comment":comment},
+                },
+                {
+                    new:true,
+                }
+            )
+            let ratingProduct = await setRating();
+            console.log(rating)
+            res.json({
+                status:"success",
+                code:1,
+                data:updateProduct,ratingProduct
+            })
+        }else{
+            const rateProduct = await Product.findByIdAndUpdate(
+                proId,
+                {
+                    $push:{
+                        ratings:{
+                            star:star,
+                            comment:comment,
+                            postedby:id
+                        },
+                    }
+                },
+                {
+                    new:true
+                }
+            )
+            let rating = await setRating();
+            res.json({
+                status:"success",
+                code:1,
+                data:rating
+            })
+        }
+    } catch (error) {
+        throw new Error(error)
+    }
+})
+
+const uploadImages = asyncHandler(async(req, res)=>{
+    console.log(req.files)
+    res.json(req.files)
+})
+module.exports = {createProduct,getProduct,getAllProducts,updateProduct,deleteProduct,addToWishlist,rating,uploadImages}

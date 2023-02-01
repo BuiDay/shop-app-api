@@ -3,16 +3,16 @@ const mongoose = require('mongoose');
 var blogSchema = new mongoose.Schema({
     title:{
         type:String,
-        require:true,
+        required:true,
         trim:true,
     },
     description:{
         type:String,
-        require:true,
+        required:true,
     },
     category:{
         type:String,
-        require:true,
+        required:true,
     },
     numView:{
         type:Number,

@@ -8,7 +8,22 @@ const createBlog = asyncHandler(async(req, res)=>{
         const newBlog = await Blog.create(req.body);
         res.json({
             status:"success",
+            code:1,
             newBlog,
+        })
+    }catch(err){
+        throw new Error(err);
+    }
+})
+
+const updateBlog = asyncHandler(async(req, res)=>{
+    const {id} = req.params
+    validateMongodbId(id)
+    try{
+        const updateBlog = await Blog.findByIdAndUpdate(id,req.body,{new:true})
+        res.json({
+            status:"success",
+            updateBlog,
         })
     }catch(err){
         throw new Error(err);
@@ -17,24 +32,11 @@ const createBlog = asyncHandler(async(req, res)=>{
 
 const getBlog = asyncHandler(async(req, res)=>{
     const {id} = req.params
+    validateMongodbId(id)
     try{
         const getBlog = await Blog.findById(id)
             .populate("likes")
             .populate("dislikes")
-        res.json({
-            status:"success",
-            getBlog,
-        })
-    }catch(err){
-        throw new Error(err);
-    }
-})
-
-
-const updateBlog = asyncHandler(async(req, res)=>{
-    const {id} = req.params
-    validateMongodbId(id)
-    try{
         const updateBlog = await Blog.findByIdAndUpdate(
             id,
             {
@@ -46,7 +48,7 @@ const updateBlog = asyncHandler(async(req, res)=>{
         res.json({
             status:"success",
             code:1,
-            updateBlog,
+            getBlog,
         })
     }catch(err){
         throw new Error(err);

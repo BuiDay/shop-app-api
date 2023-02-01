@@ -3,22 +3,22 @@ const mongoose = require('mongoose');
 var productSchema = new mongoose.Schema({
     title:{
         type:String,
-        require:true,
+        required:true,
         trim:true,
     },
     slug:{
         type:String,
-        require:true,
+        required:true,
         unique:true,
         lowercase:true,
     },
     description:{
         type:String,
-        require:true,
+        required:true,
     },
     price:{
         type:Number,
-        require:true,
+        required:true,
     },
     sold:{
         type:Number,
@@ -26,32 +26,37 @@ var productSchema = new mongoose.Schema({
     },
     category:{
         type:String,
-        require:true,
+        required:true,
     },
     brand:{
         type:String,
-        require:true,
+        required:true,
     },
     quantity:{
         type:Number,
-        require:true,
+        required:true,
     },
     images:{
         type:Array
     },
     color:{
         type:String,
-        require:true,
+        required:true,
     },
     ratings:[
         {
             star:Number,
+            comment:String,
             postedby:{
                 type:mongoose.Schema.Types.ObjectId,
                 ref:"User"
             }
         }
-    ]
+    ],
+    totalRating:{
+        type:String,
+        default:0
+    }
 },{
     timestamps:true
 })
