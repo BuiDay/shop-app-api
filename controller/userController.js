@@ -1,11 +1,12 @@
 const User = require('../models/userModel.js');
 const bcrypt = require('bcrypt');
-const { json } = require('body-parser');
+const crypto = require('crypto')
 const asyncHandler = require("express-async-handler");
 const jwt = require('jsonwebtoken');
 const { generateToken } = require('../config/jwtToken.js');
 const { generateRefreshToken} = require("../config/refreshToken.js")
 const validateMongodbId = require('../utils/validateMongodbId.js');
+const {sendEmail} = require('../controller/emailController.js')
 
 const createUser = asyncHandler(async (req, res) =>{
     const getEmail = req.body.email;
@@ -45,6 +46,7 @@ const loginUser = asyncHandler(async(req, res)=>{
         const findUser = await User.findOne({email});
         //match password 
         const isPassword = await bcrypt.compareSync(password, findUser.password)
+        console.log
         if(findUser && isPassword){
             const refreshToken = await generateRefreshToken(findUser.id);
             const updateUser = await User.findByIdAndUpdate(findUser.id,{
@@ -71,7 +73,7 @@ const loginUser = asyncHandler(async(req, res)=>{
           throw new Error("Invalid Credentials")
         }
     }catch(err){
-        throw new Error("User not exists")
+        throw new Error("Invalid Credentials")
     }
   
     // if(findUser && await findUser.isPasswordMatched(password)){
@@ -132,7 +134,6 @@ const handlerRefreshToken = asyncHandler( async(req, res)=>{
     })
 })
 
-
 const getUserById = asyncHandler(async (req, res)=>{
     try{
         const getId = req.params.id;
@@ -145,7 +146,6 @@ const getUserById = asyncHandler(async (req, res)=>{
         throw new Error("Not found")
     }
 })
-
 
 const deleteUser = asyncHandler(async (req, res)=>{
     try{
@@ -227,5 +227,83 @@ const unblockUser = asyncHandler(async (req, res)=>{
     }
 })
 
+const updatePassword = asyncHandler(async(req, res)=>{
+    const {id} = req.user;
+    const {password} = req.body;
+    console.log(password)
+    validateMongodbId(id);
+    const user = await User.findById(id);
+    console.log(user)
+    if(password){
+        const salt = await bcrypt.genSalt(10);
+        const newPassword = await bcrypt.hash(req.body.password, salt);
+        user.password = newPassword;
+        const updatePassword = await user.save();
+        res.json({
+            status:"succees",
+            code:1
+            }
+        )
+    }else{
+        res.json(user)
+    }
+    
+})
 
-module.exports = {createUser, loginUser,getAllUser,getUserById,deleteUser,updateUser,unblockUser, blockUser, handlerRefreshToken,logoutUser}
+const forgotPassword = asyncHandler(async(req, res)=>{
+    const {email} = req.body;
+    const user = await User.findOne({email});
+    if(!user){
+        throw new Error("User not found with email")
+    }
+    try{
+        const token = crypto.randomBytes(32).toString("hex");
+        user.passwordResetToken = crypto.createHash("SHA256").update(token).digest("hex")
+        user.passwordResetExpires = Date.now() + 30*60*1000;
+        await user.save();
+        const resetURL = `Hi, please follow this link to reset your password. This link <a href='http://localhost:4000/api/user/reset-password/${token}'>Click me </a>`
+        const data ={
+            to:email,
+            text:"hey you",
+            subject:"Forgot password Link",
+            html:resetURL,
+        }
+        sendEmail(data);
+        res.json({
+            status:"success",
+            code:"1"
+        })
+    }catch(err){
+        throw new Error(err)
+    }
+})
+
+const resetPassword = asyncHandler(async(req, res)=>{
+    const {password} = req.body;
+    const {token} = req.params;
+    const hashToken = crypto.createHash("SHA256").update(token).digest("hex");
+    const user = await User.findOne({
+        passwordResetToken:hashToken,
+        passwordResetExpires:{$gt:Date.now()}
+    })
+    if(!user){
+        throw new Error("token expired, please try again later");
+    }
+    if(password){
+        const salt = await bcrypt.genSalt(10);
+        const newPassword = await bcrypt.hash(req.body.password, salt);
+        user.password = newPassword;
+        user.passwordResetToken = undefined;
+        user.passwordResetExpires = undefined;
+        user.passwordChangedAt = Date.now();
+    }
+    await user.save();
+    res.json(
+        {
+            status:"success",
+            code:'1'
+        }
+    )
+})
+
+module.exports = {createUser, loginUser,getAllUser,getUserById,deleteUser,updateUser,unblockUser, blockUser, handlerRefreshToken,logoutUser,updatePassword,forgotPassword,resetPassword}

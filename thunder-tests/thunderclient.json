@@ -1,0 +1,160 @@
+[
+  {
+    "_id": "cd8d66b8-b94e-4c8a-850f-865559469414",
+    "colId": "c58e8546-7c9c-43cb-a809-c73f46a6faec",
+    "containerId": "",
+    "name": "Create product",
+    "url": "http://localhost:4000/api/product",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2023-01-31T12:59:45.174Z",
+    "modified": "2023-01-31T13:04:36.133Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n   \"title\":\"Apple Watch 4\",\n    \"description\":\"Node.js E-Commerce App with REST API: Let's Build a Real-Life\",\n    \"price\":100,\n    \"category\":\"laptop\",\n    \"brand\":\"Apple\",\n    \"quantity\":100,\n    \"color\":\"yellow\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "d01f7c35-8c97-44ec-8ac0-9a579f950bd3",
+    "colId": "c58e8546-7c9c-43cb-a809-c73f46a6faec",
+    "containerId": "",
+    "name": "Get all product",
+    "url": "http://localhost:4000/api/product",
+    "method": "GET",
+    "sortNum": 20000,
+    "created": "2023-01-31T13:05:30.019Z",
+    "modified": "2023-01-31T15:46:38.791Z",
+    "headers": [],
+    "params": [
+      {
+        "name": "brand",
+        "value": "Sony",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "category",
+        "value": "laptop",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "sort",
+        "value": "122",
+        "isDisabled": true,
+        "isPath": false
+      },
+      {
+        "name": "price[gte]",
+        "value": "100",
+        "isDisabled": true,
+        "isPath": false
+      }
+    ],
+    "tests": []
+  },
+  {
+    "_id": "9e7fa406-e6a2-4d9d-994e-decd711dd2da",
+    "colId": "eebcb1db-13a0-47eb-bb44-5e6dc397302f",
+    "containerId": "",
+    "name": "Register user",
+    "url": "http://localhost:4000/api/user/register",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2023-01-31T16:17:46.013Z",
+    "modified": "2023-01-31T17:29:38.674Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"firstName\":\"Day\",\n  \"lastName\":\"Bui\",\n  \"email\":\"buiday@gmail.com\",\n  \"mobile\":\"0933804788\",\n  \"password\":\"123456789\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "a241b641-bada-4c7f-809c-a1210011c5fe",
+    "colId": "eebcb1db-13a0-47eb-bb44-5e6dc397302f",
+    "containerId": "",
+    "name": "Login",
+    "url": "http://localhost:4000/api/user/login",
+    "method": "POST",
+    "sortNum": 40000,
+    "created": "2023-01-31T17:30:05.386Z",
+    "modified": "2023-01-31T19:11:23.244Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\":\"buivanduynhat@gmail.com\",\n  \"password\":\"1234\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "d0b51f6a-3f43-459a-addf-6542a5c83c32",
+    "colId": "eebcb1db-13a0-47eb-bb44-5e6dc397302f",
+    "containerId": "",
+    "name": "Change password",
+    "url": "http://localhost:4000/api/user/password",
+    "method": "PUT",
+    "sortNum": 50000,
+    "created": "2023-01-31T17:33:08.580Z",
+    "modified": "2023-01-31T17:48:21.982Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk1MDAyNzdkZTY0NTI2MTdhYTRmZCIsImlhdCI6MTY3NTE4NjIzMywiZXhwIjoxNjc1MjcyNjMzfQ.EkiFKNuNxupYNodmYpVSK3Xg_BVjfV9ziSqtExlSHpU"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"password\":\"1234\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "c6bbb6db-6824-4cc4-987b-abf39f979125",
+    "colId": "eebcb1db-13a0-47eb-bb44-5e6dc397302f",
+    "containerId": "",
+    "name": "Forgot password",
+    "url": "http://localhost:4000/api/user/forgot-password",
+    "method": "POST",
+    "sortNum": 70000,
+    "created": "2023-01-31T18:21:27.780Z",
+    "modified": "2023-01-31T18:47:34.853Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\":\"buivanduynhat@gmail.com\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "34e17d6b-2c64-4e76-8408-0134393ea4d9",
+    "colId": "eebcb1db-13a0-47eb-bb44-5e6dc397302f",
+    "containerId": "",
+    "name": "Reset password",
+    "url": "http://localhost:4000/api/user/reset-password/a69985fa5479074ce77f9674b99488599aa637285b13a010ad60b0f2733949a2",
+    "method": "POST",
+    "sortNum": 80000,
+    "created": "2023-01-31T18:57:27.397Z",
+    "modified": "2023-01-31T19:11:11.927Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"password\":\"1234\"\n}",
+      "form": []
+    },
+    "tests": []
+  }
+]

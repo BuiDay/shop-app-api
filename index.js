@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const dbConnect = require('./config/dbConnect.js')
 const authRouter = require('./routes/authRoute.js')
 const productRouter = require('./routes/productRoute.js')
+const blogRouter = require('./routes/blogRoute.js')
 const morgan = require('morgan')
 const cookie = require('cookie-parser')
 const { notFound, errorHandler } = require('./middlewares/errorHandler.js')
@@ -22,6 +23,7 @@ app.use(morgan())
 
 app.use('/api/user',authRouter);
 app.use('/api/product',productRouter);
+app.use('api/blog',blogRouter);
 
 app.use(notFound);
 app.use(errorHandler);
