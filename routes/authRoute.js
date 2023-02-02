@@ -1,10 +1,12 @@
 const express = require("express");
 const router =express.Router();
-const {createUser,loginUser, getAllUser,getUserById,deleteUser,updateUser,unblockUser,blockUser,handlerRefreshToken,logoutUser,updatePassword,forgotPassword,resetPassword} = require('../controller/userController.js');
+const {createUser,loginUser, getAllUser,getUserById,deleteUser,updateUser,unblockUser,getCart,
+    blockUser,handlerRefreshToken,emptyCart,logoutUser,updatePassword,addCart,forgotPassword,resetPassword,loginAdmin,getWishlist,updateAddress} = require('../controller/userController.js');
 const { authMiddleware,isAdmin} = require("../middlewares/authMiddleware.js");
 
 router.post('/register',createUser);
 router.post('/login',loginUser);
+router.post('/login-admin',loginAdmin);
 router.get('/logout',logoutUser)
 router.get('/get-all-user',getAllUser);
 router.get(`/?id=:id`,authMiddleware, isAdmin,getUserById);
@@ -16,5 +18,10 @@ router.get('/refresh',handlerRefreshToken);
 router.put('/password',authMiddleware,updatePassword);
 router.post("/forgot-password",forgotPassword);
 router.post("/reset-password/:token",resetPassword);
+router.get('/wishlist',authMiddleware,getWishlist);
+router.put('/address',authMiddleware,updateAddress);
+router.post("/cart",authMiddleware,addCart);
+router.get("/cart",authMiddleware,getCart);
+router.delete("/cart",authMiddleware,emptyCart);
 
 module.exports = router

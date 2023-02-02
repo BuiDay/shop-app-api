@@ -6,7 +6,9 @@ const jwt = require('jsonwebtoken');
 const { generateToken } = require('../config/jwtToken.js');
 const { generateRefreshToken} = require("../config/refreshToken.js")
 const validateMongodbId = require('../utils/validateMongodbId.js');
-const {sendEmail} = require('../controller/emailController.js')
+const {sendEmail} = require('../controller/emailController.js');
+const Cart= require('../models/cartModel.js');
+const Product = require("../models/productModel.js")
 
 const createUser = asyncHandler(async (req, res) =>{
     const getEmail = req.body.email;
@@ -82,6 +84,52 @@ const loginUser = asyncHandler(async(req, res)=>{
     //     throw new Error("Invalid Credentials");
     // }
 })
+
+const loginAdmin = asyncHandler(async(req, res)=>{
+    const {email, password} = req.body;
+
+        const findAdmin = await User.findOne({email});
+        //match password 
+        const isPassword = await bcrypt.compareSync(password, findAdmin.password)
+        console.log(findAdmin.role)
+        if(findAdmin.role !== "admin"){
+            throw new Error("Not Authorised");
+        } 
+        else{
+        if(findAdmin && isPassword){
+            const refreshToken = await generateRefreshToken(findAdmin.id);
+            const updateAdmin = await User.findByIdAndUpdate(findAdmin.id,{
+                refreshToken
+            },{
+                new:true,
+            })
+            res.cookie("refreshToken",refreshToken,{
+                httpOnly:true,
+                maxAge:72*60*60*1000,
+            });
+            res.json({
+                status:"success",
+                data:{
+                    _id:findAdmin._id,
+                    firstName: findAdmin.firstName,
+                    lastName: findAdmin.lastName,
+                    email: findAdmin.email,
+                    mobile: findAdmin.mobile,
+                    token:generateToken(findAdmin.id),
+                }
+            })
+        }else{
+          throw new Error("Invalid Credentials")
+        }
+       }
+  
+    // if(findUser && await findUser.isPasswordMatched(password)){
+    //     res.json(findUser)
+    // }else{
+    //     throw new Error("Invalid Credentials");
+    // }
+})
+
 
 const logoutUser = asyncHandler(async (req, res)=>{
     const cookie = req.cookies;
@@ -306,4 +354,115 @@ const resetPassword = asyncHandler(async(req, res)=>{
     )
 })
 
-module.exports = {createUser, loginUser,getAllUser,getUserById,deleteUser,updateUser,unblockUser, blockUser, handlerRefreshToken,logoutUser,updatePassword,forgotPassword,resetPassword}
+const getWishlist = asyncHandler(async(req, res)=>{
+    const {id} = req.user;
+    try{
+        const user = await User.findById(id).populate("wishlist");
+        res.json({
+            status:"success",
+            code:1,
+            data:user
+        })
+    }catch(err){
+        throw new Error (err)
+    }
+})
+
+const updateAddress = asyncHandler(async(req, res)=>{
+    const {id} = req.user;
+    validateMongodbId(id)
+    try{
+        const user = await User.findByIdAndUpdate(
+            id,
+            {
+                address:req.body?.address
+            },
+            {
+                new:true
+            }
+        )
+        res.json({
+            status:"success",
+            code:1,
+            data:user
+        })
+    }catch(err){
+        throw new Error (err)
+    }
+})
+
+const addCart = asyncHandler(async(req, res)=>{
+   const {cart} = req.body;
+   const {id} = req.user;
+   validateMongodbId(id);
+   try {
+    let products = [];
+    const user = await User.findById(id);
+    const alreadyExistCart = await Cart.findOne({orderby:user.id});
+    if(alreadyExistCart){
+        alreadyExistCart.remove();
+    }
+
+    for(let i = 0; i < cart.length; i++){
+        let object = {};
+        object.product = cart[i].id;
+        object.count = cart[i].count;
+        object.color = cart[i].color;
+        let getPrice = await Product.findById(cart[i].id).select("price").exec();
+        object.price = getPrice.price
+        products.push(object)
+    }
+   let cartTotal = 0;
+   for(let i = 0; i < products.length; i++){
+    cartTotal = cartTotal + products[i].price * products[i].count;
+   }
+   let newCart = await new Cart({
+    products,
+    cartTotal,
+    orderby:user?.id
+   }).save();
+   res.json({
+    status:"success",
+    code:1,
+    data:newCart
+   })
+   } catch (error) {
+    throw new Error(error)
+   }
+})
+
+const getCart = asyncHandler(async(req, res)=>{
+    const {id} = req.user;
+    validateMongodbId(id);
+    try {
+        const cart = await Cart.findOne({orderby:id}).populate("products.product");
+        res.json({
+            status:"success",
+            code:1,
+            data:cart
+        })
+    } catch (error) {
+        throw new Error(error)
+    }
+})
+
+const emptyCart = asyncHandler(async(req, res)=>{
+    const {id} = req.user;
+    validateMongodbId(id);
+    try {
+        const user = await User.findOne(id)
+        const cart = await Cart.findByIdAndRemove({orderby:user.id})
+        res.json({
+            status:"success",
+            code:1,
+            data:cart
+        })
+    } catch (error) {
+        throw new Error(error)
+    }
+})
+
+
+module.exports = {createUser, loginUser,getAllUser,getUserById,deleteUser,
+    updateUser,unblockUser, blockUser, handlerRefreshToken,logoutUser,updatePassword,
+    forgotPassword,resetPassword,loginAdmin,emptyCart,getWishlist,updateAddress,addCart,getCart}

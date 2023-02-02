@@ -85,8 +85,13 @@
     "method": "POST",
     "sortNum": 40000,
     "created": "2023-01-31T17:30:05.386Z",
-    "modified": "2023-02-01T17:15:04.043Z",
-    "headers": [],
+    "modified": "2023-02-02T13:20:25.649Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": ""
+      }
+    ],
     "params": [],
     "body": {
       "type": "json",
@@ -510,16 +515,21 @@
     "tests": []
   },
   {
-    "_id": "b97dfd5c-63b3-480f-bf8f-813d09c3fc41",
+    "_id": "d77a56e9-aada-4489-84e2-ddf588f09c03",
     "colId": "c58e8546-7c9c-43cb-a809-c73f46a6faec",
     "containerId": "",
     "name": "Upload images",
     "url": "http://localhost:4000/api/product/upload/63d911e4f3ba9d5988e3a536",
     "method": "PUT",
-    "sortNum": 40000,
-    "created": "2023-02-01T20:16:44.984Z",
-    "modified": "2023-02-01T20:21:35.225Z",
-    "headers": [],
+    "sortNum": 50000,
+    "created": "2023-02-02T06:57:59.106Z",
+    "modified": "2023-02-02T07:16:52.698Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk0ZjZlMjYwNjhhMWQwOWM5MWFjZCIsImlhdCI6MTY3NTMyMTIyNywiZXhwIjoxNjc1NDA3NjI3fQ.EHxzvbDbHrHdyh5Ew7KF47fcDaI9Suc0jjRRqrixPtY"
+      }
+    ],
     "params": [],
     "body": {
       "type": "formdata",
@@ -528,10 +538,115 @@
       "files": [
         {
           "name": "images",
-          "value": "..\\..\\elec-shop-app\\src\\assets\\images\\apple-watch-series-8.png"
+          "value": "..\\..\\elec-shop-app\\src\\assets\\images\\blog-1.jpg"
         }
       ]
     },
+    "tests": []
+  },
+  {
+    "_id": "6d4a02f7-ff0b-450c-9be6-d08653e40838",
+    "colId": "eebcb1db-13a0-47eb-bb44-5e6dc397302f",
+    "containerId": "",
+    "name": "Login admin",
+    "url": "http://localhost:4000/api/user/login-admin",
+    "method": "POST",
+    "sortNum": 100000,
+    "created": "2023-02-02T07:51:48.202Z",
+    "modified": "2023-02-02T08:38:18.349Z",
+    "headers": [],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"email\":\"buivanduynhat@gmail.com\",\n  \"password\":\"1234\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "09f98d08-3767-4680-962b-0aa34daf5113",
+    "colId": "eebcb1db-13a0-47eb-bb44-5e6dc397302f",
+    "containerId": "",
+    "name": "Get wishlist",
+    "url": "http://localhost:4000/api/user/wishlist",
+    "method": "GET",
+    "sortNum": 110000,
+    "created": "2023-02-02T08:36:52.191Z",
+    "modified": "2023-02-02T08:41:35.041Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk0ZjZlMjYwNjhhMWQwOWM5MWFjZCIsImlhdCI6MTY3NTMyNzI4OSwiZXhwIjoxNjc1NDEzNjg5fQ.wx-FJxIKO7QchYjnPP-hl5rZb4gCiHZ6ziliQXrZWAE"
+      }
+    ],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "f6b6c673-9c0e-4c8d-9b14-0bad07927a7b",
+    "colId": "eebcb1db-13a0-47eb-bb44-5e6dc397302f",
+    "containerId": "",
+    "name": "Update address",
+    "url": "http://localhost:4000/api/user/address",
+    "method": "PUT",
+    "sortNum": 120000,
+    "created": "2023-02-02T12:21:01.617Z",
+    "modified": "2023-02-02T12:22:32.193Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk0ZjZlMjYwNjhhMWQwOWM5MWFjZCIsImlhdCI6MTY3NTMyNzI4OSwiZXhwIjoxNjc1NDEzNjg5fQ.wx-FJxIKO7QchYjnPP-hl5rZb4gCiHZ6ziliQXrZWAE"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"address\":\"741 hung vuong, di linh, lam dong\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "fd76ea59-3e00-493b-8154-52336465a1b1",
+    "colId": "eebcb1db-13a0-47eb-bb44-5e6dc397302f",
+    "containerId": "",
+    "name": "Add to cart",
+    "url": "http://localhost:4000/api/user/cart",
+    "method": "POST",
+    "sortNum": 130000,
+    "created": "2023-02-02T12:41:20.566Z",
+    "modified": "2023-02-02T13:20:46.336Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk1MDAyNzdkZTY0NTI2MTdhYTRmZCIsImlhdCI6MTY3NTM0NDAyNSwiZXhwIjoxNjc1NDMwNDI1fQ.2qwuCrN9v-e31ZzzAsmQfMgHnIOjJVdyUV9-lj41aQo"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"cart\":[\n      {\n        \"id\":\"63d911e4f3ba9d5988e3a536\",\n        \"count\":\"1\",\n        \"color\":\"red\"\n      },\n      {\n        \"id\":\"63d911dcaa84ced6c4608e1d\",\n        \"count\":\"1\",\n        \"color\":\"red\"\n      }\n    ]\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "ae5436d6-7b43-413d-9ee1-efde8d4cae91",
+    "colId": "eebcb1db-13a0-47eb-bb44-5e6dc397302f",
+    "containerId": "",
+    "name": "Get card",
+    "url": "http://localhost:4000/api/user/cart",
+    "method": "GET",
+    "sortNum": 140000,
+    "created": "2023-02-02T13:24:11.899Z",
+    "modified": "2023-02-02T13:24:31.303Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk1MDAyNzdkZTY0NTI2MTdhYTRmZCIsImlhdCI6MTY3NTM0NDAyNSwiZXhwIjoxNjc1NDMwNDI1fQ.2qwuCrN9v-e31ZzzAsmQfMgHnIOjJVdyUV9-lj41aQo"
+      }
+    ],
+    "params": [],
     "tests": []
   }
 ]

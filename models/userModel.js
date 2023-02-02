@@ -37,12 +37,11 @@ var userSchema = new mongoose.Schema({
         type:Boolean,
         default:false,
     },
-    address:[
+    address:
         {
-            type:mongoose.Schema.Types.ObjectId,
-            ref:"Address",
+            type:String,
         }
-    ],
+    ,
     wishlist:[
         {
             type:mongoose.Schema.Types.ObjectId,
