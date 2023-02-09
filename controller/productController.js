@@ -276,4 +276,6 @@ const uploadImage = asyncHandler(async(req, res)=>{
         throw new Error(error)
     }
 })
+
+
 module.exports = {createProduct,getProduct,getAllProducts,updateProduct,deleteProduct,addToWishlist,rating,uploadImage}

@@ -3,35 +3,43 @@ const bcrypt = require('bcrypt');
 const crypto = require('crypto')
 const asyncHandler = require("express-async-handler");
 const jwt = require('jsonwebtoken');
+const uniqid = require("uniqid");
 const { generateToken } = require('../config/jwtToken.js');
 const { generateRefreshToken} = require("../config/refreshToken.js")
 const validateMongodbId = require('../utils/validateMongodbId.js');
 const {sendEmail} = require('../controller/emailController.js');
 const Cart= require('../models/cartModel.js');
 const Product = require("../models/productModel.js")
+const Coupon = require("../models/couponModel.js")
+const Order = require("../models/orderModel.js");
+const console = require('console');
 
 const createUser = asyncHandler(async (req, res) =>{
     const getEmail = req.body.email;
-    const findUser = await User.findOne({email: getEmail});
+   
+    try {
+        const findUser = await User.findOne({email: getEmail});
+            //hash password
+        const salt = await bcrypt.genSalt(10);
+        const newPassword = await bcrypt.hash(req.body.password, salt);
 
-    //hash password
-    const salt = await bcrypt.genSalt(10);
-    const newPassword = await bcrypt.hash(req.body.password, salt);
-
-    const {lastName, firstName, email, password, mobile} = req.body;
-    if(!findUser){
-        const newUser = User.create({
-            lastName,
-            firstName,
-            email,
-            password:newPassword,
-            mobile
-        })
-        res.json({
-            status:"success"             
-        });
-    }else{
-        throw new Error("User already exists");
+        const {lastName, firstName, email, password, mobile} = req.body;
+        if(!findUser){
+            const newUser = User.create({
+                lastName,
+                firstName,
+                email,
+                password:newPassword,
+                mobile
+            })
+            res.json({
+                status:"success"             
+            });
+        }else{
+            throw new Error("User already exists");
+        }
+    } catch (error) {
+        throw new Error(error)
     }
     // if(!findUser){
     //     const newUser = User.create(req.body);
@@ -462,7 +470,125 @@ const emptyCart = asyncHandler(async(req, res)=>{
     }
 })
 
+const applyCoupon = asyncHandler(async(req, res)=>{
+    const {coupon} = req.body;
+    const {_id} = req.user;
+    validateMongodbId(_id);
+    const validCoupon = await Coupon.findOne({name:coupon});
+    if(validCoupon === null){
+        throw new Error("Invalid Coupon");
+    }
+    const user = await User.findOne({_id});
+    let {cartTotal} = await Cart.findOne({
+        orderby:user._id
+    }).populate("products.product");
+    let totalAfterDiscount = (
+        cartTotal-(cartTotal * validCoupon.discount) / 100
+    ).toFixed(2);
+    console.log(totalAfterDiscount)
+    await Cart.findOneAndUpdate(
+        {
+            orderby:user._id
+        },
+        {
+            totalAfterDiscount
+        },
+        {
+            new:true
+        }
+    )
+    res.json(totalAfterDiscount)
+})
 
-module.exports = {createUser, loginUser,getAllUser,getUserById,deleteUser,
+const createOrder = asyncHandler(async (req, res)=>{
+    const {COD, couponApplied} = req.body;
+    const {_id} = req.user;
+    validateMongodbId(_id);
+    try {
+        if(!COD){
+            throw new Error("Create cash order failed");
+        }
+        const user = await User.findById(_id);
+        let userCart = await Cart.findOne({orderby:user._id});
+        let finalAmout = 0;
+        if(couponApplied && userCart.totalAfterDiscount){
+            finalAmout = userCart.totalAfterDiscount;
+        }else{
+            finalAmout = userCart.cartTotal;
+        }
+        let newOrder = await new Order({
+            products:userCart.products,
+            paymentIntent:{
+                id:uniqid(),
+                method:"COD",
+                amout:finalAmout,
+                status:"Cash on Delivery",
+                created:Date.now(),
+                currency:"usd"
+            },
+            orderby:user.id,
+            orderStatus:"Cash on Delivery"
+        }).save();
+        let update = userCart.products.map((item)=>{
+            return{
+                updateOne:{
+                    filter:{_id:item.product._id},
+                    update:{$inc:{quantity:-item.count,sold:+item.count}}
+                },
+            }
+        })
+        const updated = await Product.bulkWrite(update,{});
+        res.json({
+            message:"success",
+            code:1
+        })
+    } catch (error) {
+        throw new Error(error)
+    }
+})
+
+const getOrder = asyncHandler(async (req, res)=>{
+    const {_id} = req.user;
+    validateMongodbId(_id);
+    console.log(_id)
+    try {
+       const userOrder = await Order.findOne({orderby:_id})
+       .populate("products.product")
+       .exec();
+       res.json({
+        message:"success",
+        code:1,
+        data:userOrder
+       })
+    } catch (error) {
+        throw new Error(error)
+    }
+})
+
+const updateOrderStatus = asyncHandler(async (req, res)=>{
+    const {status} = req.body;
+    const {id} = req.params;
+    validateMongodbId(id)
+    console.log(status)
+    const findOrder = await Order.findByIdAndUpdate(
+        id,
+        {
+            orderStatus:status,
+            paymentIntent:{
+                status:status,
+            }
+        },
+        {
+            new:true,
+        }
+    )
+    res.json({
+        message:"success",
+        code:1,
+        data:findOrder
+       })
+})
+
+module.exports = {createUser,createOrder,getOrder, loginUser,getAllUser,getUserById,deleteUser,updateOrderStatus,
     updateUser,unblockUser, blockUser, handlerRefreshToken,logoutUser,updatePassword,
-    forgotPassword,resetPassword,loginAdmin,emptyCart,getWishlist,updateAddress,addCart,getCart}
+    forgotPassword,resetPassword,loginAdmin,emptyCart,getWishlist,updateAddress,addCart,getCart,applyCoupon}

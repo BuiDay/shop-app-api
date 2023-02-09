@@ -10,6 +10,7 @@ const blogCategoryRouter = require('./routes/blogCategoryRoute.js')
 const couponRouter = require('./routes/couponRoute.js')
 const morgan = require('morgan')
 const cookie = require('cookie-parser')
+const cors = require('cors')
 const { notFound, errorHandler } = require('./middlewares/errorHandler.js')
 const app = express();
 const dotenv = require('dotenv');
@@ -17,7 +18,7 @@ const PORT = process.env.PORT || 4000;
 
 dotenv.config();
 dbConnect();
-
+app.use(cors())
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
