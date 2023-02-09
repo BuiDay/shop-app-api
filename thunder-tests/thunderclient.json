@@ -66,12 +66,12 @@
     "method": "POST",
     "sortNum": 10000,
     "created": "2023-01-31T16:17:46.013Z",
-    "modified": "2023-01-31T17:29:38.674Z",
+    "modified": "2023-02-02T17:48:25.451Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"firstName\":\"Day\",\n  \"lastName\":\"Bui\",\n  \"email\":\"buiday@gmail.com\",\n  \"mobile\":\"0933804788\",\n  \"password\":\"123456789\"\n}",
+      "raw": "{\n  \"firstName\":\"Thuy\",\n  \"lastName\":\"Na\",\n  \"email\":\"thuyna@gmail.com\",\n  \"mobile\":\"0933804745\",\n  \"password\":\"12345\"\n}",
       "form": []
     },
     "tests": []
@@ -553,7 +553,7 @@
     "method": "POST",
     "sortNum": 100000,
     "created": "2023-02-02T07:51:48.202Z",
-    "modified": "2023-02-02T08:38:18.349Z",
+    "modified": "2023-02-08T20:17:24.816Z",
     "headers": [],
     "params": [],
     "body": {
@@ -615,11 +615,11 @@
     "method": "POST",
     "sortNum": 130000,
     "created": "2023-02-02T12:41:20.566Z",
-    "modified": "2023-02-02T13:20:46.336Z",
+    "modified": "2023-02-09T09:51:00.920Z",
     "headers": [
       {
         "name": "Authorization",
-        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk1MDAyNzdkZTY0NTI2MTdhYTRmZCIsImlhdCI6MTY3NTM0NDAyNSwiZXhwIjoxNjc1NDMwNDI1fQ.2qwuCrN9v-e31ZzzAsmQfMgHnIOjJVdyUV9-lj41aQo"
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk1MDAyNzdkZTY0NTI2MTdhYTRmZCIsImlhdCI6MTY3NTkzNjI1MywiZXhwIjoxNjc2MDIyNjUzfQ.2VI55iabtEIKe9K_sOmHg-LV_vxS-mhKWudK84G344g"
       }
     ],
     "params": [],
@@ -644,6 +644,140 @@
       {
         "name": "Authorization",
         "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk1MDAyNzdkZTY0NTI2MTdhYTRmZCIsImlhdCI6MTY3NTM0NDAyNSwiZXhwIjoxNjc1NDMwNDI1fQ.2qwuCrN9v-e31ZzzAsmQfMgHnIOjJVdyUV9-lj41aQo"
+      }
+    ],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "0a296a72-432c-46c5-a1f4-3dc19093b3fa",
+    "colId": "eebcb1db-13a0-47eb-bb44-5e6dc397302f",
+    "containerId": "",
+    "name": "Apply coupon",
+    "url": "http://localhost:4000/api/user/cart/apply-coupon",
+    "method": "POST",
+    "sortNum": 150000,
+    "created": "2023-02-08T18:17:41.389Z",
+    "modified": "2023-02-09T09:51:13.568Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk1MDAyNzdkZTY0NTI2MTdhYTRmZCIsImlhdCI6MTY3NTkzNjI1MywiZXhwIjoxNjc2MDIyNjUzfQ.2VI55iabtEIKe9K_sOmHg-LV_vxS-mhKWudK84G344g"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"coupon\":\"QWERYX\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "70d79620-1afb-4061-9335-173ae1168383",
+    "colId": "eebcb1db-13a0-47eb-bb44-5e6dc397302f",
+    "containerId": "",
+    "name": "Cash order",
+    "url": "http://localhost:4000/api/user/cart/cash-order",
+    "method": "POST",
+    "sortNum": 160000,
+    "created": "2023-02-08T19:14:27.106Z",
+    "modified": "2023-02-09T09:51:18.560Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk1MDAyNzdkZTY0NTI2MTdhYTRmZCIsImlhdCI6MTY3NTkzNjI1MywiZXhwIjoxNjc2MDIyNjUzfQ.2VI55iabtEIKe9K_sOmHg-LV_vxS-mhKWudK84G344g"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"COD\":true,\n  \"couponApplied\":true\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "f76ac23d-76f2-4509-b946-e0d20dda65a7",
+    "colId": "eebcb1db-13a0-47eb-bb44-5e6dc397302f",
+    "containerId": "",
+    "name": "Get order",
+    "url": "http://localhost:4000/api/user/order/get-order",
+    "method": "GET",
+    "sortNum": 170000,
+    "created": "2023-02-08T20:11:01.225Z",
+    "modified": "2023-02-08T20:25:48.782Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk1MDAyNzdkZTY0NTI2MTdhYTRmZCIsImlhdCI6MTY3NTg4NzQ0OSwiZXhwIjoxNjc1OTczODQ5fQ.XppR7UXUjA-7GZDT0wR_sQvyn_YDev4zXwjTAy8q9hQ"
+      }
+    ],
+    "params": [],
+    "tests": []
+  },
+  {
+    "_id": "a6f5558e-0db4-4a01-b08e-1e276353f1b2",
+    "colId": "eebcb1db-13a0-47eb-bb44-5e6dc397302f",
+    "containerId": "",
+    "name": "Update status",
+    "url": "http://localhost:4000/api/user/order/update-order/63e3f5964105cd93d2ed202f",
+    "method": "PUT",
+    "sortNum": 180000,
+    "created": "2023-02-08T20:31:57.557Z",
+    "modified": "2023-02-08T20:34:46.418Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk0ZjZlMjYwNjhhMWQwOWM5MWFjZCIsImlhdCI6MTY3NTg4ODM2MCwiZXhwIjoxNjc1OTc0NzYwfQ.X3BX7GWZhuZnqImSxOh-q85IKuQtHqGyx6cKBOq8Vws"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"status\":\"Procesing\"\n}",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "35bcc9c9-7832-4d91-9d49-2bc8a78c408b",
+    "colId": "c9e6c281-da1e-4ed1-ac01-df1ecefa1696",
+    "containerId": "",
+    "name": "Add blog",
+    "url": "http://localhost:4000/api/blog",
+    "method": "POST",
+    "sortNum": 10000,
+    "created": "2023-02-09T08:37:57.156Z",
+    "modified": "2023-02-09T08:40:33.054Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk0ZjZlMjYwNjhhMWQwOWM5MWFjZCIsImlhdCI6MTY3NTkzMTkwMiwiZXhwIjoxNjc2MDE4MzAyfQ.SX0VGvn4RC6KOXvhYJgKzxIE9QVl6pThii52lR7jUr0"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"title\":\"Blog 345\",\n  \"description\":\"In this video, we'll continue our full stack Mern Ecommerce project and discuss how to integrate our API with our admin panel. In this part, we'll cover how to create an API key and generate an API request.\",\n  \"category\":\"Learn\"\n}\n",
+      "form": []
+    },
+    "tests": []
+  },
+  {
+    "_id": "2b4923ca-9b2e-409e-b9c3-fa8dde228633",
+    "colId": "eebcb1db-13a0-47eb-bb44-5e6dc397302f",
+    "containerId": "",
+    "name": "Get All orders",
+    "url": "http://localhost:4000/api/user/get-orders",
+    "method": "GET",
+    "sortNum": 190000,
+    "created": "2023-02-09T09:09:58.918Z",
+    "modified": "2023-02-09T09:28:05.323Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk0ZjZlMjYwNjhhMWQwOWM5MWFjZCIsImlhdCI6MTY3NTkzNDg3NSwiZXhwIjoxNjc2MDIxMjc1fQ.9cfKxqGABnhxPmpMTUrc4bkii3ZBgpV83X0WYANoFkE"
       }
     ],
     "params": [],

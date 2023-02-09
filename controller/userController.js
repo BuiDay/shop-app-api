@@ -565,6 +565,22 @@ const getOrder = asyncHandler(async (req, res)=>{
     }
 })
 
+const getOrders = asyncHandler(async (req, res)=>{
+    try {
+       const userOrder = await Order.find()
+       .populate("products.product")
+       .populate("orderby")
+     
+       res.json({
+        message:"success",
+        code:1,
+        data:userOrder
+       })
+    } catch (error) {
+        throw new Error(error)
+    }
+})
+
 const updateOrderStatus = asyncHandler(async (req, res)=>{
     const {status} = req.body;
     const {id} = req.params;
@@ -591,4 +607,4 @@ const updateOrderStatus = asyncHandler(async (req, res)=>{
 
 module.exports = {createUser,createOrder,getOrder, loginUser,getAllUser,getUserById,deleteUser,updateOrderStatus,
     updateUser,unblockUser, blockUser, handlerRefreshToken,logoutUser,updatePassword,
-    forgotPassword,resetPassword,loginAdmin,emptyCart,getWishlist,updateAddress,addCart,getCart,applyCoupon}
+    forgotPassword,resetPassword,loginAdmin,emptyCart,getWishlist,updateAddress,addCart,getCart,applyCoupon,getOrders}

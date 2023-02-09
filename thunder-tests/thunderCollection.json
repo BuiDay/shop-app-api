@@ -40,5 +40,12 @@
     "created": "2023-02-01T17:46:11.645Z",
     "sortNum": 50000,
     "folders": []
+  },
+  {
+    "_id": "c9e6c281-da1e-4ed1-ac01-df1ecefa1696",
+    "colName": "Blog",
+    "created": "2023-02-09T08:37:33.641Z",
+    "sortNum": 70000,
+    "folders": []
   }
 ]

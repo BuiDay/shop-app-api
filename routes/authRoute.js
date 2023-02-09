@@ -1,6 +1,6 @@
 const express = require("express");
 const router =express.Router();
-const {createUser,loginUser, getAllUser,getUserById,deleteUser,updateUser,unblockUser,getCart,
+const {createUser,loginUser, getAllUser,getUserById,deleteUser,updateUser,unblockUser,getCart,getOrders,
     blockUser,handlerRefreshToken,createOrder,updateOrderStatus,emptyCart,logoutUser,updatePassword,addCart,forgotPassword,getOrder,resetPassword,loginAdmin,getWishlist,updateAddress,applyCoupon} = require('../controller/userController.js');
 const { authMiddleware,isAdmin} = require("../middlewares/authMiddleware.js");
 
@@ -27,6 +27,7 @@ router.post("/cart/apply-coupon",authMiddleware,applyCoupon);
 router.post("/cart/cash-order",authMiddleware,createOrder);
 router.get("/order/get-order",authMiddleware,getOrder);
 router.put("/order/update-order/:id",authMiddleware,isAdmin,updateOrderStatus);
+router.get("/get-orders",authMiddleware,isAdmin,getOrders);
 
 
 module.exports = router

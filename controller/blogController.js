@@ -61,7 +61,7 @@ const getAllBlog = asyncHandler(async(req, res)=>{
         res.json({
             status:"success",
             code:1,
-            getAllBlog,
+            data:getAllBlog,
         })
     }catch(err){
         throw new Error(err);
