@@ -317,7 +317,7 @@ const forgotPassword = asyncHandler(async(req, res)=>{
         user.passwordResetToken = crypto.createHash("SHA256").update(token).digest("hex")
         user.passwordResetExpires = Date.now() + 30*60*1000;
         await user.save();
-        const resetURL = `Hi, please follow this link to reset your password. This link <a href='http://localhost:4000/api/user/reset-password/${token}'>Click me </a>`
+        const resetURL = `Hi, please follow this link to reset your password. This link <a href='http://localhost:3000/comfirm-password/${token}'>Click me </a>`
         const data ={
             to:email,
             text:"hey you",
@@ -553,7 +553,7 @@ const getOrder = asyncHandler(async (req, res)=>{
     validateMongodbId(_id);
     console.log(_id)
     try {
-       const userOrder = await Order.findOne({orderby:_id})
+       const userOrder = await Order.find({orderby:_id})
        .populate("products.product")
        .exec();
        res.json({
@@ -591,9 +591,6 @@ const updateOrderStatus = asyncHandler(async (req, res)=>{
         id,
         {
             orderStatus:status,
-            paymentIntent:{
-                status:status,
-            }
         },
         {
             new:true,

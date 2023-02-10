@@ -9,7 +9,9 @@ router.post('/login',loginUser);
 router.post('/login-admin',loginAdmin);
 router.get('/logout',logoutUser)
 router.get('/get-all-users',getAllUser);
-router.get(`/?id=:id`,authMiddleware, isAdmin,getUserById);
+
+router.get(`/id=:id`,authMiddleware, getUserById);
+
 router.delete(`/?id=:id`,deleteUser);
 router.put(`/update-user`,authMiddleware ,updateUser);
 router.put(`/block-user/id=:id`,authMiddleware,isAdmin ,blockUser);

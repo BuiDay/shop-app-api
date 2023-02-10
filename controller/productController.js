@@ -60,7 +60,8 @@ const getProduct = asyncHandler(async(req, res) =>{
     const {id} = req.params;
     try{
         validateMongodbId(id);
-        const product = await Product.findById(id);
+        const product = await Product.findById(id)
+        .populate("ratings.postedby");
         if(product){
             res.json({
                 code:1,
@@ -88,10 +89,10 @@ const getAllProducts = asyncHandler(async(req, res)=>{
         let query = Product.find(JSON.parse(queryStr));
 
         //sorting
-
         if(req.query.sort){
-            const sortBy = req.query.sort.split(",").json(" ");
-            query = query.sort(sortBy);
+            // const sortBy = req.query.sort.split(",").json(" ");
+            
+            query = query.sort(req.query.sort);
         }else{
             query =query.sort("-createdAt");
         }
