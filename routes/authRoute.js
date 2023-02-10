@@ -20,9 +20,11 @@ router.post("/forgot-password",forgotPassword);
 router.post("/reset-password/:token",resetPassword);
 router.get('/wishlist',authMiddleware,getWishlist);
 router.put('/address',authMiddleware,updateAddress);
+
 router.post("/cart",authMiddleware,addCart);
 router.get("/cart",authMiddleware,getCart);
 router.delete("/cart",authMiddleware,emptyCart);
+
 router.post("/cart/apply-coupon",authMiddleware,applyCoupon);
 router.post("/cart/cash-order",authMiddleware,createOrder);
 router.get("/order/get-order",authMiddleware,getOrder);

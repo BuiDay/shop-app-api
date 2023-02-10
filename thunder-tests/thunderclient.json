@@ -23,28 +23,26 @@
     "colId": "c58e8546-7c9c-43cb-a809-c73f46a6faec",
     "containerId": "",
     "name": "Get all product",
-    "url": "http://localhost:4000/api/product",
+    "url": "http://localhost:4000/api/product?brand=Hp&category=Laptop",
     "method": "GET",
     "sortNum": 20000,
     "created": "2023-01-31T13:05:30.019Z",
-    "modified": "2023-01-31T15:46:38.791Z",
+    "modified": "2023-02-10T13:12:58.262Z",
     "headers": [],
     "params": [
       {
         "name": "brand",
-        "value": "Sony",
-        "isDisabled": true,
+        "value": "Hp",
         "isPath": false
       },
       {
         "name": "category",
-        "value": "laptop",
-        "isDisabled": true,
+        "value": "Laptop",
         "isPath": false
       },
       {
         "name": "sort",
-        "value": "122",
+        "value": "100",
         "isDisabled": true,
         "isPath": false
       },
@@ -81,11 +79,11 @@
     "colId": "eebcb1db-13a0-47eb-bb44-5e6dc397302f",
     "containerId": "",
     "name": "Login",
-    "url": "http://localhost:4000/api/user/login",
+    "url": "http://localhost:5000/api/user/login",
     "method": "POST",
     "sortNum": 40000,
     "created": "2023-01-31T17:30:05.386Z",
-    "modified": "2023-02-02T13:20:25.649Z",
+    "modified": "2023-02-09T13:14:03.803Z",
     "headers": [
       {
         "name": "Authorization",
@@ -615,17 +613,17 @@
     "method": "POST",
     "sortNum": 130000,
     "created": "2023-02-02T12:41:20.566Z",
-    "modified": "2023-02-09T09:51:00.920Z",
+    "modified": "2023-02-10T13:50:42.194Z",
     "headers": [
       {
         "name": "Authorization",
-        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk1MDAyNzdkZTY0NTI2MTdhYTRmZCIsImlhdCI6MTY3NTkzNjI1MywiZXhwIjoxNjc2MDIyNjUzfQ.2VI55iabtEIKe9K_sOmHg-LV_vxS-mhKWudK84G344g"
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk0ZjZlMjYwNjhhMWQwOWM5MWFjZCIsImlhdCI6MTY3NjAzNjU5OSwiZXhwIjoxNjc2MTIyOTk5fQ.IeH5Tx8ShvR73xYtNFsUv_Ah-iSv3JKZTSb12cotEmc"
       }
     ],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "{\n  \"cart\":[\n      {\n        \"id\":\"63d911e4f3ba9d5988e3a536\",\n        \"count\":\"1\",\n        \"color\":\"red\"\n      },\n      {\n        \"id\":\"63d911dcaa84ced6c4608e1d\",\n        \"count\":\"1\",\n        \"color\":\"red\"\n      }\n    ]\n}",
+      "raw": "{\n  \"cart\":[\n      {\n        \"id\":\"63e6333c7ac495b51ee7adaa\",\n        \"count\":\"10\",\n        \"color\":\"red\"\n      }\n    ]\n}",
       "form": []
     },
     "tests": []
@@ -639,11 +637,11 @@
     "method": "GET",
     "sortNum": 140000,
     "created": "2023-02-02T13:24:11.899Z",
-    "modified": "2023-02-02T13:24:31.303Z",
+    "modified": "2023-02-10T14:06:28.266Z",
     "headers": [
       {
         "name": "Authorization",
-        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk1MDAyNzdkZTY0NTI2MTdhYTRmZCIsImlhdCI6MTY3NTM0NDAyNSwiZXhwIjoxNjc1NDMwNDI1fQ.2qwuCrN9v-e31ZzzAsmQfMgHnIOjJVdyUV9-lj41aQo"
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk0ZjZlMjYwNjhhMWQwOWM5MWFjZCIsImlhdCI6MTY3NjAzNzI3MiwiZXhwIjoxNjc2MTIzNjcyfQ.-i3rX4U4Z8Ddx7WfZi0ltiX9biF-70ou-eUHYBQ6wh0"
       }
     ],
     "params": [],
@@ -658,11 +656,11 @@
     "method": "POST",
     "sortNum": 150000,
     "created": "2023-02-08T18:17:41.389Z",
-    "modified": "2023-02-09T09:51:13.568Z",
+    "modified": "2023-02-10T13:54:42.614Z",
     "headers": [
       {
         "name": "Authorization",
-        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk1MDAyNzdkZTY0NTI2MTdhYTRmZCIsImlhdCI6MTY3NTkzNjI1MywiZXhwIjoxNjc2MDIyNjUzfQ.2VI55iabtEIKe9K_sOmHg-LV_vxS-mhKWudK84G344g"
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk0ZjZlMjYwNjhhMWQwOWM5MWFjZCIsImlhdCI6MTY3NjAzNzI3MiwiZXhwIjoxNjc2MTIzNjcyfQ.-i3rX4U4Z8Ddx7WfZi0ltiX9biF-70ou-eUHYBQ6wh0"
       }
     ],
     "params": [],
@@ -682,11 +680,11 @@
     "method": "POST",
     "sortNum": 160000,
     "created": "2023-02-08T19:14:27.106Z",
-    "modified": "2023-02-09T09:51:18.560Z",
+    "modified": "2023-02-10T14:55:09.100Z",
     "headers": [
       {
         "name": "Authorization",
-        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk1MDAyNzdkZTY0NTI2MTdhYTRmZCIsImlhdCI6MTY3NTkzNjI1MywiZXhwIjoxNjc2MDIyNjUzfQ.2VI55iabtEIKe9K_sOmHg-LV_vxS-mhKWudK84G344g"
+        "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk0ZjZlMjYwNjhhMWQwOWM5MWFjZCIsImlhdCI6MTY3NjAzNzI3MiwiZXhwIjoxNjc2MTIzNjcyfQ.-i3rX4U4Z8Ddx7WfZi0ltiX9biF-70ou-eUHYBQ6wh0"
       }
     ],
     "params": [],
@@ -781,6 +779,60 @@
       }
     ],
     "params": [],
+    "tests": []
+  },
+  {
+    "_id": "21ecf860-c67a-4d2d-8b8d-92acd521abb3",
+    "colId": "5e8954ba-a820-4c59-bff1-ae569e5be7d9",
+    "containerId": "",
+    "name": "Upload",
+    "url": "http://localhost:4000/api/upload",
+    "method": "PUT",
+    "sortNum": 10000,
+    "created": "2023-02-09T18:03:06.275Z",
+    "modified": "2023-02-10T08:27:04.550Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": " Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk0ZjZlMjYwNjhhMWQwOWM5MWFjZCIsImlhdCI6MTY3NTk2NTg0NywiZXhwIjoxNjc2MDUyMjQ3fQ.ueHOuYGJ8Xk7171wJHoeaIEze5Bq-DDUXDEicxh9mOg"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "formdata",
+      "raw": "",
+      "form": [],
+      "files": [
+        {
+          "name": "images",
+          "value": "..\\..\\..\\React\\shop-app\\src\\assets\\images\\airmac.jpg"
+        }
+      ]
+    },
+    "tests": []
+  },
+  {
+    "_id": "78f45ca2-2d40-4aac-9b0a-75ff00065c31",
+    "colId": "5e8954ba-a820-4c59-bff1-ae569e5be7d9",
+    "containerId": "",
+    "name": "Delete Img",
+    "url": "http://localhost:4000/api/upload/delete-img",
+    "method": "DELETE",
+    "sortNum": 20000,
+    "created": "2023-02-09T19:48:46.584Z",
+    "modified": "2023-02-09T19:53:50.104Z",
+    "headers": [
+      {
+        "name": "Authorization",
+        "value": " Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDk0ZjZlMjYwNjhhMWQwOWM5MWFjZCIsImlhdCI6MTY3NTk2NTg0NywiZXhwIjoxNjc2MDUyMjQ3fQ.ueHOuYGJ8Xk7171wJHoeaIEze5Bq-DDUXDEicxh9mOg"
+      }
+    ],
+    "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"id\":\"xypudqubk7sidmzlpcxc\"\n}",
+      "form": []
+    },
     "tests": []
   }
 ]

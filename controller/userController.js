@@ -401,6 +401,7 @@ const updateAddress = asyncHandler(async(req, res)=>{
 
 const addCart = asyncHandler(async(req, res)=>{
    const {cart} = req.body;
+   console.log(cart)
    const {id} = req.user;
    validateMongodbId(id);
    try {
